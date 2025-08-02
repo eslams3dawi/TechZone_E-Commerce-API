@@ -54,6 +54,8 @@
 ---
 
 ## 💸 6. Payments (Stripe Integration)
+![Payment](Images/7.Payment%Checkout.png)
+![Payment](Images/8.Payment.png)
 
 - Secure checkout via Stripe  
 - Auto-redirect to payment session  
