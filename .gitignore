@@ -1,4 +1,9 @@
 bin/
 obj/
-vs/
+.vs/
 packages/
+
+
+.env
+appsettings.json
+appsettings.Development.json
