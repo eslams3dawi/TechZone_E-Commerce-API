@@ -5,7 +5,6 @@
 **TechZone** is an online electronics shopping platform providing a complete backend solution for managing accounts, products, orders, payments, and more.
 
 ![API Endpoints](Images/API.png)
----
 
 ## 🔐 1. Account & Authentication
 
@@ -55,6 +54,8 @@
 ---
 
 ## 💸 6. Payments (Stripe Integration)
+![Payment](Images/7.PaymentCheckout.png)
+![Payment](Images/8.Payment.png)
 
 - Secure checkout via Stripe  
 - Auto-redirect to payment session  
