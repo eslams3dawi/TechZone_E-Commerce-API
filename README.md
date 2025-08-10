@@ -79,7 +79,7 @@
 - Order Confirmation Emails  
 - Status Update Notifications  
 
-![Email Step 1](Postman%20Testing/EmailOne.png)  
+![Email Step 1](Postman%20Testing/6.Email%20SMTP.png)  
 ![Email Step 2](Postman%20Testing/EmailTwo.png)  
 ![Email Step 3](Postman%20Testing/EmailThree.png)  
 ![Email Step 4](Postman%20Testing/EmailFour.png)  
