@@ -7,15 +7,6 @@ using TechZone.DAL.Enums.Order;
 
 namespace TechZone.DAL.Models
 {
-    //for User
-    //Create Order - generic
-    //Delete Order (when cancellation) - generic
-
-    //for Admin
-    //Edit OrderStatus - generic
-    //Initialize ShippingDate - generic
-    //Get All Orders - generic → OrderHeaderReadDTO
-    //Get Order details - generic → OrderDetailsReadDTO
     public class OrderHeader
     {
         //Order
@@ -41,7 +32,6 @@ namespace TechZone.DAL.Models
         public string PhoneNumber { get; set; }
         public string StreetAddress { get; set; }
         public string City { get; set; }
-        //public decimal TotalPrice { get; set; }
         public virtual ApplicationUser ApplicationUser { get; set; }
     }
 }

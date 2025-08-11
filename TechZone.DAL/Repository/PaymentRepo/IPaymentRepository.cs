@@ -14,5 +14,6 @@ namespace TechZone.DAL.Repository.PaymentRepo
         public Task<Payment?> GetPaymentBySessionId(string sessionId);
         public Task UpdatePaymentStatus(Payment payment);
         public Task<Payment?> GetPayment(int orderHeaderId);
+        public Task<Payment?> GetPaymentByOrderId(int orderId);
     }
 }

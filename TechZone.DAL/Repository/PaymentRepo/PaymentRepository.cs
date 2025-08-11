@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using TechZone.DAL.Database;
 using TechZone.DAL.Models;
 using TechZone.DAL.Repository.GenericRepo;
+using static System.Collections.Specialized.BitVector32;
 
 namespace TechZone.DAL.Repository.PaymentRepo
 {
@@ -40,6 +41,12 @@ namespace TechZone.DAL.Repository.PaymentRepo
         public async Task UpdatePaymentStatus(Payment payment)
         {
             await _context.SaveChangesAsync();
+        }
+
+        public async Task<Payment?> GetPaymentByOrderId(int orderId)
+        {
+            return await _context.Payments
+                .FirstOrDefaultAsync(p => p.OrderHeaderId == orderId);       
         }
     }
 }
