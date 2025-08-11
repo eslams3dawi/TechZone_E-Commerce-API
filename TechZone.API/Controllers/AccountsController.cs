@@ -44,7 +44,7 @@ namespace TechZone.API.Controllers
 
         [Authorize(Roles = "Admin")]
         [HttpPost("CreateRole")]
-        public async Task<IActionResult> CreateRole(RoleAddDTO roleAddDTO)
+        public async Task<ActionResult<Result<string>>> CreateRole(RoleAddDTO roleAddDTO)
         {
             var result = await _accountService.CreateRole(roleAddDTO);
 
@@ -56,7 +56,7 @@ namespace TechZone.API.Controllers
 
         [Authorize(Roles = "Admin")]
         [HttpPost("AssignRoleToUser")]
-        public async Task<IActionResult> AssignRole(AssignRoleDTO assignRoleDTO)
+        public async Task<ActionResult<Result<string>>> AssignRole(AssignRoleDTO assignRoleDTO)
         {
             var result = await _accountService.AssignRoleToUser(assignRoleDTO);
 

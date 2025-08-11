@@ -11,7 +11,7 @@ namespace TechZone.BLL.Services.ProductServices
 {
     public interface IProductService
     {
-        public Task AddAsync(ProductAddDTO productAddDTO);
+        public Task<int> AddAsync(ProductAddDTO productAddDTO);
         public Task<Result<PagedResult<ProductReadDTO>>> GetAllPagination(string filter, string search, int pageNumber = 1, int pageSize = 10);      
         public Task<Result<ProductDetailsDTO>> GetProductWithCategoryNameAsync(int id);
         public Task UpdateAsync(ProductUpdateDTO productUpdateDTO);

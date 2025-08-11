@@ -28,11 +28,18 @@ namespace TechZone.BLL.Services.CategoryService
             _memoryCache = memoryCache;
         }
 
-        public async Task AddCategory(CategoryAddDTO categoryAddDTO)
+        public async Task<int> AddCategory(CategoryAddDTO categoryAddDTO)
         {
             var categoryModel = _mapper.Map<Category>(categoryAddDTO);
 
             await _categoryRepository.Add(categoryModel);
+            MemoryCacheEntryOptions options = new MemoryCacheEntryOptions()
+            {
+                SlidingExpiration = TimeSpan.FromDays(3)
+            };
+            _memoryCache.Set($"{_cache_Key}: {categoryModel.CategoryId}", categoryModel, options);
+            RemoveCacheList();
+            return categoryModel.CategoryId;
         }
 
         public async Task DeleteCategory(int id)
@@ -40,7 +47,7 @@ namespace TechZone.BLL.Services.CategoryService
             var categoryModel = await _categoryRepository.GetById(id);
             await _categoryRepository.Delete(categoryModel);
 
-            RemoveFromCache(id);
+            RemoveCacheCategory(id);
         }
 
         public async Task<Result<IEnumerable<ProductReadDTO>>> GetAllProductsUnderSpecificCategory(int categoryId)
@@ -72,7 +79,6 @@ namespace TechZone.BLL.Services.CategoryService
                     SlidingExpiration = TimeSpan.FromDays(3)
                 };
                 _memoryCache.Set(_cache_Key, categoryDTOs, options);
-
             }
                 return Result<IEnumerable<CategoryDTO>>.Success(categoryDTOs, "Categories Retrieved Successfully");
         }
@@ -104,10 +110,10 @@ namespace TechZone.BLL.Services.CategoryService
             _mapper.Map(categoryDTO, categoryModel);
             await _categoryRepository.Update(categoryModel);
 
-            RemoveFromCache(categoryDTO.CategoryId);
+            RemoveCacheCategory(categoryDTO.CategoryId);
         }
 
-        private void RemoveFromCache(int categoryId)
+        private void RemoveCacheCategory(int categoryId)
         {
             if(_memoryCache.TryGetValue($"{_cache_Key}: {categoryId}", out _))
                 _memoryCache.Remove($"{_cache_Key}: {categoryId}");
@@ -115,6 +121,10 @@ namespace TechZone.BLL.Services.CategoryService
             if(_memoryCache.TryGetValue(_cache_Key, out IEnumerable<CategoryDTO> categoryDTOs))
                 if (categoryDTOs.Any(c => c.CategoryId == categoryId))
                     _memoryCache.Remove(_cache_Key);
+        }
+        private void RemoveCacheList()
+        {
+            _memoryCache.Remove(_cache_Key);
         }
     }
 }

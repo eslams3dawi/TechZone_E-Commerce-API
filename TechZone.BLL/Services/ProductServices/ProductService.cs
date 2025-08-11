@@ -26,7 +26,7 @@ namespace TechZone.BLL.Services.ProductServices
             _categoryService = categoryService;
             _mapper = mapper;
         }
-        public async Task AddAsync(ProductAddDTO productAddDTO)
+        public async Task<int> AddAsync(ProductAddDTO productAddDTO)
         {
             //clear cart items after order creation
             var existingCategory = await _categoryService.GetCategoryById(productAddDTO.CategoryId);
@@ -34,7 +34,7 @@ namespace TechZone.BLL.Services.ProductServices
             {
                 var productModel = _mapper.Map<ProductAddDTO, Product>(productAddDTO);
                 await _productRepository.Add(productModel);
-                return;
+                return productModel.ProductId;
             }
             throw new BadRequestException("Invalid categoryId, categoryId not found");
         }   
@@ -84,7 +84,6 @@ namespace TechZone.BLL.Services.ProductServices
         public async Task SoftDeleteAsync(int id)
         {
             var entity = await _productRepository.GetById(id);
-            //ToDo: Null
             if (entity == null)
                 throw new KeyNotFoundException();
 

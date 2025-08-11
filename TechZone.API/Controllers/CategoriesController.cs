@@ -24,9 +24,9 @@ namespace TechZone.API.Controllers
         [HttpPost]
         public async Task<ActionResult> AddCategory(CategoryAddDTO categoryAddDTO)
         {
-            await _categoryService.AddCategory(categoryAddDTO);
+            var categoryId = await _categoryService.AddCategory(categoryAddDTO); //void
 
-            return NoContent();
+            return CreatedAtAction(nameof(GetCategoryById), new { id = categoryId }, new { Message = "Category Created Successfully" });
         }
 
         [AllowAnonymous]
@@ -39,7 +39,7 @@ namespace TechZone.API.Controllers
 
         [Authorize(Roles = "Admin")]
         [HttpGet("{id}")]
-        public async Task<ActionResult<Result<CategoryDTO>>> GetCategoryById(int id)
+        public async Task<ActionResult> GetCategoryById(int id)
         {
             var categoryModel = await _categoryService.GetCategoryById(id);
             return Ok(categoryModel);
@@ -47,7 +47,7 @@ namespace TechZone.API.Controllers
 
         [Authorize(Roles = "Admin, User")]
         [HttpGet]
-        public async Task<ActionResult<Result<CategoryDTO>>> GetCategories()
+        public async Task<ActionResult> GetCategories()
         {
             var categoryModels = await _categoryService.GetCategories();
             return Ok(categoryModels);

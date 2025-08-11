@@ -12,7 +12,7 @@ namespace TechZone.BLL.Services.ShoppingCartService
     public interface IShoppingCartService
     {
         public Task<Result<IEnumerable<ShoppingCartReadDTO>>> GetCart(string userId);
-        public Task AddToCart(ShoppingCartAddDTO shoppingCartAddDTO);
+        public Task<int> AddToCart(ShoppingCartAddDTO shoppingCartAddDTO);
         public Task UpdateProductCountInCart(ShoppingCartUpdateDTO shoppingCartUpdateDTO);
         public Task DeleteProductInCart(string userId, int productId);
         public Task ClearCart(string userId);

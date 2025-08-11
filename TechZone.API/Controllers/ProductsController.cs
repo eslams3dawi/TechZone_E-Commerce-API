@@ -39,8 +39,8 @@ namespace TechZone.API.Controllers
         [HttpPost]
         public async Task<ActionResult> AddProduct(ProductAddDTO productAddDTO)
         {
-            await _productService.AddAsync(productAddDTO);
-            return NoContent();
+            var productId = await _productService.AddAsync(productAddDTO);
+            return CreatedAtAction(nameof(GetProductWithCategoryNameAsync), new { id = productId }, new {Message = "Product Created Successfully"});
         }
 
         [Authorize(Roles = "Admin")]

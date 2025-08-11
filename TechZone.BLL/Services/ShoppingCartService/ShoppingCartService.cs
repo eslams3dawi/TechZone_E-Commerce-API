@@ -25,7 +25,7 @@ namespace TechZone.BLL.Services.ShoppingCartService
             _productRepository = productRepository;
             _mapper = mapper;
         }
-        public async Task AddToCart(ShoppingCartAddDTO shoppingCartAddDTO)
+        public async Task<int> AddToCart(ShoppingCartAddDTO shoppingCartAddDTO)
         {
             var existingItem = await _shoppingCartRepository.
                 GetCartItemByUserAndProduct(shoppingCartAddDTO.UserId, shoppingCartAddDTO.ProductId);
@@ -35,6 +35,7 @@ namespace TechZone.BLL.Services.ShoppingCartService
                 //if exist, increase only the count
                 existingItem.Count += shoppingCartAddDTO.Count;
                 await _shoppingCartRepository.Update(existingItem);
+                return 0;
             }
             else if(shoppingCartAddDTO.Count < 1)
             {
@@ -49,6 +50,7 @@ namespace TechZone.BLL.Services.ShoppingCartService
                 cartItemModel.Price = product.Price;
                 cartItemModel.Brand = product.Brand;
                 await _shoppingCartRepository.Add(cartItemModel);
+                return cartItemModel.Id;
             }
         }
 

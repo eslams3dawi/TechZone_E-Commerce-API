@@ -15,7 +15,7 @@ namespace TechZone.BLL.Services.CategoryService
     {
         public Task<Result<IEnumerable<CategoryDTO>>> GetCategories();
         public Task<Result<CategoryDTO>> GetCategoryById(int id);
-        public Task AddCategory(CategoryAddDTO categoryAddDTO);
+        public Task<int> AddCategory(CategoryAddDTO categoryAddDTO);
         public Task UpdateCategory(CategoryDTO categoryDTO);
         public Task DeleteCategory(int id);
         public Task<Result<IEnumerable<ProductReadDTO>>> GetAllProductsUnderSpecificCategory(int categoryId);

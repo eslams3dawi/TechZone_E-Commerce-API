@@ -22,9 +22,12 @@ namespace TechZone.API.Controllers
         [HttpPost("cart/products")]
         public async Task<ActionResult> AddToCart(ShoppingCartAddDTO shoppingCartAddDTO)
         {
-            await _shoppingCartService.AddToCart(shoppingCartAddDTO);
+            var cartItemId = await _shoppingCartService.AddToCart(shoppingCartAddDTO);
 
-            return NoContent();
+            if(cartItemId == 0)
+                return Ok($"Item Count Increased by {shoppingCartAddDTO.Count}");
+
+            return CreatedAtAction(nameof(GetUserCart), new { id = cartItemId }, new { Message = "Item Add To Cart Successfully" });
         }
 
         [Authorize(Roles = "Admin, User")]
